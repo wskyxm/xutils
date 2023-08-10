@@ -2,9 +2,10 @@ package main
 
 import (
 	"net/http"
-	"xutils/src/web/httpres"
-	"xutils/src/web/httpsvr"
+	"xutils/src/xconf"
 	"xutils/src/xerr"
+	"xutils/src/xhttp/httpres"
+	"xutils/src/xhttp/httpsvr"
 	"xutils/src/xlog"
 )
 
@@ -18,8 +19,16 @@ func test(c *httpsvr.Context) {
 }
 
 func main() {
-	xlog.SetLogLevel(xlog.SInfoLog)
-	xlog.SetLogDir("")
+
+	var config struct{
+		xconf.Configure
+		ServerAddr string
+	}
+
+	xconf.Load("./config.toml", &config)
+
+	xlog.SetLogLevel(config.LogLevel)
+	xlog.SetLogDir(config.LogDir)
 
 	svr := httpsvr.New(httpsvr.Config{AuthCB: auth, Root: "./www"})
 

@@ -5,8 +5,8 @@ import (
 	"io"
 	"mime/multipart"
 	"os"
-	"xutils/src/web/httpres"
 	"xutils/src/xerr"
+	"xutils/src/xhttp/httpres"
 )
 
 func HttpFirstFile(c *gin.Context) (*multipart.FileHeader, error) {

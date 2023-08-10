@@ -1,0 +1,23 @@
+
+# info < warning < error < fatal，输出大于等于配置级别的日志
+loglevel = "info"
+# 日志目录
+logdir = ""
+
+# 监听地址
+serveraddr = ":20006"
+
+# yt-dlp路径
+ytdlp = "C:\\Windows\\System32\\yt-dlp.exe"
+
+# ffmpeg路径
+ffmpeg = "C:\\Windows\\System32\\ffmpeg.exe"
+
+# 访问密钥
+secret = "*$MQ@xw2ay5ZVUz5aHK#*O^nZ9U2!6cg"
+
+# 字体名称
+fontname = "FZYBKSJW--GB1-0"
+
+# 字体大小
+fontsize = 25

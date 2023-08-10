@@ -3,6 +3,7 @@ module xutils
 go 1.19
 
 require (
+	github.com/BurntSushi/toml v1.3.2
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang/glog v1.1.2
