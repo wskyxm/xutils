@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"xutils/src/xcache"
 	"xutils/src/xconf"
 	"xutils/src/xerr"
 	"xutils/src/xhttp/httpres"
@@ -34,6 +36,13 @@ func main() {
 
 	svr.Auth(svr.GET,"/test", test)
 	svr.Bind(svr.GET,"/test1", test)
+
+	xcache.Initialize("", "")
+	xcache.HSet("test1", map[string]string{"abc": "123"})
+	xcache.Set("test2", "456", 0)
+	fmt.Println(xcache.HGet("test1", "abc"))
+	fmt.Println(xcache.HGetAll("test1"))
+	fmt.Println(xcache.Get("test2"))
 
 	svr.Run(":8080")
 }
