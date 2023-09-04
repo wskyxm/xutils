@@ -9,120 +9,120 @@ import (
 )
 
 // 缓存对象
-var cache ICache
+var cacheimp ICache
 
 // 初始化缓存，如果addr为空，则使用内存缓存
 func Initialize(addr string, pass string) {
-	if addr != "" {cache = NewXRedis(addr, pass)
-	} else {cache = NewXMemory()}
+	if addr != "" {cacheimp = NewXRedis(addr, pass)
+	} else {cacheimp = NewXMemory()}
 }
 
 func Expire(key string, exp time.Duration) {
-	cache.Expire(key, exp)
+	cacheimp.Expire(key, exp)
 }
 
 func SSet(key string, val ...interface{}) error {
-	return cache.SSet(key, val...)
+	return cacheimp.SSet(key, val...)
 }
 
 func SDel(key string, val ...interface{}) error {
-	return cache.SDel(key, val...)
+	return cacheimp.SDel(key, val...)
 }
 
 func SCard(key string) int64 {
-	return cache.SCard(key)
+	return cacheimp.SCard(key)
 }
 
 func SIsMember(key string, val interface{}) bool {
-	return cache.SIsMember(key, val)
+	return cacheimp.SIsMember(key, val)
 }
 
 func ZSet(key string, members ...*Z) error {
-	return cache.ZSet(key, members...)
+	return cacheimp.ZSet(key, members...)
 }
 
 func ZDel(key string, member ...interface{}) error {
-	return cache.ZDel(key, member...)
+	return cacheimp.ZDel(key, member...)
 }
 
 func ZCard(key string) int64 {
-	return cache.ZCard(key)
+	return cacheimp.ZCard(key)
 }
 
 func ZRange(key string, start, stop int64) []string {
-	return cache.ZRange(key, start, stop)
+	return cacheimp.ZRange(key, start, stop)
 }
 
 func ZScore(key, member string) float64 {
-	return cache.ZScore(key, member)
+	return cacheimp.ZScore(key, member)
 }
 
 func ZRangeByScoreLimit(key string, min, max string, offset, count int64) []string {
-	return cache.ZRangeByScoreLimit(key, min, max, offset, count)
+	return cacheimp.ZRangeByScoreLimit(key, min, max, offset, count)
 }
 
 func ZRangeByScore(key string, min, max string) []string {
-	return cache.ZRangeByScore(key, min, max)
+	return cacheimp.ZRangeByScore(key, min, max)
 }
 
 func ZRangeByScoreWithScores(key string, min, max string) []Z {
-	return cache.ZRangeByScoreWithScores(key, min, max)
+	return cacheimp.ZRangeByScoreWithScores(key, min, max)
 }
 
 func ZRevRangeByScoreLimitWithScores(key string, min, max string, offset, count int64) []Z {
-	return cache.ZRevRangeByScoreLimitWithScores(key, min, max, offset, count)
+	return cacheimp.ZRevRangeByScoreLimitWithScores(key, min, max, offset, count)
 }
 
 func ZRevRangeByScoreWithScores(key string, min, max string) []Z {
-	return cache.ZRevRangeByScoreWithScores(key, min, max)
+	return cacheimp.ZRevRangeByScoreWithScores(key, min, max)
 }
 
 func ZRevRangeByScoreLimit(key string, min, max string, offset, count int64) []string {
-	return cache.ZRevRangeByScoreLimit(key, min, max, offset, count)
+	return cacheimp.ZRevRangeByScoreLimit(key, min, max, offset, count)
 }
 
 func ZRevRangeByScore(key string, min, max string) []string {
-	return cache.ZRevRangeByScore(key, min, max)
+	return cacheimp.ZRevRangeByScore(key, min, max)
 }
 
 func ZIncrBy(key, member string, increment float64) float64 {
-	return cache.ZIncrBy(key, member, increment)
+	return cacheimp.ZIncrBy(key, member, increment)
 }
 
 func Del(keys ...string) {
-	cache.Del(keys...)
+	cacheimp.Del(keys...)
 }
 
 func HGetAll(key string) map[string]string {
-	return cache.HGetAll(key)
+	return cacheimp.HGetAll(key)
 }
 
 func Exists(keys ...string) int64 {
-	return cache.Exists(keys...)
+	return cacheimp.Exists(keys...)
 }
 
 func Get(key string) string {
-	return cache.Get(key)
+	return cacheimp.Get(key)
 }
 
 func Set(key string, value string, exp time.Duration) error {
-	return cache.Set(key, value, exp)
+	return cacheimp.Set(key, value, exp)
 }
 
 func HGet(key, field string) string {
-	return cache.HGet(key, field)
+	return cacheimp.HGet(key, field)
 }
 
 func HSet(key string, val interface{}) error {
-	return cache.HSet(key, val)
+	return cacheimp.HSet(key, val)
 }
 
 func HDel(key string, field ...string) error {
-	return cache.HDel(key, field...)
+	return cacheimp.HDel(key, field...)
 }
 
 func HIncr(key, field string, incr int64) error {
-	return cache.HIncr(key, field, incr)
+	return cacheimp.HIncr(key, field, incr)
 }
 
 func DSetAlways(key, pkey string, val *xvalue.Value, field string, item interface{}) error {
