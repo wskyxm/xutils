@@ -42,6 +42,9 @@ ifneq ($(os),)
     TARGET_OS=$(os)
 endif
 
+help:
+	@echo "make os=[linux, windows] arch=[amd64, arm64]"
+
 default:
 	@echo "build the ${BINARY_NAME}, ${TARGET_OS}, ${TARGET_ARCH}"
 	@GOOS=${TARGET_OS} GOARCH=${TARGET_ARCH} go build -ldflags ${ldflags} -o bin/${BINARY} ${TARGET_FILE}
