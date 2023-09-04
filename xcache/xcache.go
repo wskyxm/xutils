@@ -1,11 +1,11 @@
 package xcache
 
 import (
+	"github.com/wskyxm/xutils/xdao"
+	"github.com/wskyxm/xutils/xerr"
+	"github.com/wskyxm/xutils/xvalue"
 	"gorm.io/gorm/clause"
 	"time"
-	"xutils/src/xdao"
-	"xutils/src/xerr"
-	"xutils/src/xvalue"
 )
 
 // 缓存对象
@@ -13,8 +13,10 @@ var cacheimp ICache
 
 // 初始化缓存，如果addr为空，则使用内存缓存
 func Initialize(addr string, pass string) {
-	if addr != "" {cacheimp = NewXRedis(addr, pass)
-	} else {cacheimp = NewXMemory()}
+	if addr != "" {
+		cacheimp = NewXRedis(addr, pass)
+	} else {
+		cacheimp = NewXMemory()}
 }
 
 func Expire(key string, exp time.Duration) {

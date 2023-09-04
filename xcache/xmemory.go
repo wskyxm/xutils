@@ -3,8 +3,8 @@ package xcache
 import (
 	"fmt"
 	"github.com/patrickmn/go-cache"
+	"github.com/wskyxm/xutils/xvalue"
 	"time"
-	"xutils/src/xvalue"
 )
 
 type XMemory struct {

@@ -2,9 +2,9 @@ package httpsvr
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/wskyxm/xutils/xlog"
 	"io"
 	"net/http"
-	"xutils/src/xlog"
 )
 
 type H = gin.H
@@ -13,18 +13,18 @@ type Context = gin.Context
 type HandlerFunc = gin.HandlerFunc
 
 type Config struct {
-	Root			string
-	HandlerNoRoute	[]HandlerFunc
-	HandlerUse		[]HandlerFunc
-	AuthCB			HandlerFunc
-	AuthFCB			HandlerFunc
-	AuthBCB			HandlerFunc
+	Root           string
+	HandlerNoRoute []HandlerFunc
+	HandlerUse     []HandlerFunc
+	AuthCB         HandlerFunc
+	AuthFCB        HandlerFunc
+	AuthBCB        HandlerFunc
 }
 
 type Server struct {
-	wwwdir			http.FileSystem
-	config			Config
-	router			*gin.Engine
+	wwwdir http.FileSystem
+	config Config
+	router *gin.Engine
 }
 
 func New(config Config) *Server {

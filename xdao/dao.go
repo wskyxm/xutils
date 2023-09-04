@@ -3,6 +3,7 @@ package xdao
 import (
 	"database/sql"
 	"errors"
+	"github.com/wskyxm/xutils/xlog"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
@@ -10,7 +11,6 @@ import (
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"time"
-	"xutils/src/xlog"
 )
 
 var conn *gorm.DB

@@ -2,10 +2,10 @@ package httpsvr
 
 import (
 	"github.com/gin-gonic/gin"
-	"xutils/src/xlog"
+	"github.com/wskyxm/xutils/xlog"
 )
 
-type MethodFunc func(relativePath string, handlers ...HandlerFunc)IRoutes
+type MethodFunc func(relativePath string, handlers ...HandlerFunc) IRoutes
 
 func (s *Server)auth(method MethodFunc, path string, fn HandlerFunc, handler ...gin.HandlerFunc) {
 	// 参数检查

@@ -1,14 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"github.com/wskyxm/xutils/xconf"
+	"github.com/wskyxm/xutils/xerr"
+	"github.com/wskyxm/xutils/xhttp/httpres"
+	"github.com/wskyxm/xutils/xhttp/httpsvr"
+	"github.com/wskyxm/xutils/xlog"
 	"net/http"
-	"xutils/src/xcache"
-	"xutils/src/xconf"
-	"xutils/src/xerr"
-	"xutils/src/xhttp/httpres"
-	"xutils/src/xhttp/httpsvr"
-	"xutils/src/xlog"
 )
 
 func auth(c *httpsvr.Context) {
@@ -33,16 +31,7 @@ func main() {
 	xlog.SetLogDir(config.LogDir)
 
 	svr := httpsvr.New(httpsvr.Config{AuthCB: auth, Root: "./www"})
-
 	svr.Auth(svr.GET,"/test", test)
 	svr.Bind(svr.GET,"/test1", test)
-
-	xcache.Initialize("", "")
-	xcache.HSet("test1", map[string]string{"abc": "123"})
-	xcache.Set("test2", "456", 0)
-	fmt.Println(xcache.HGet("test1", "abc"))
-	fmt.Println(xcache.HGetAll("test1"))
-	fmt.Println(xcache.Get("test2"))
-
 	svr.Run(":8080")
 }

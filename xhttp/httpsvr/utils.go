@@ -2,11 +2,11 @@ package httpsvr
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/wskyxm/xutils/xerr"
+	"github.com/wskyxm/xutils/xhttp/httpres"
 	"io"
 	"mime/multipart"
 	"os"
-	"xutils/src/xerr"
-	"xutils/src/xhttp/httpres"
 )
 
 func HttpFirstFile(c *gin.Context) (*multipart.FileHeader, error) {

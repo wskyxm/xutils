@@ -22,7 +22,8 @@ func (e *Error)Error() string {
 
 func New(err error) *Error {
 	// 校正认证错误信息
-	if err == nil {err = NoError}
+	if err == nil {err = NoError
+	}
 
 	// 初始化错误对象
 	switch err.(type) {

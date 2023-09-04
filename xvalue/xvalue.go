@@ -47,7 +47,9 @@ func (s *Value)String() string {
 
 	switch s.value.(type) {
 	case string: return s.value.(string)
-	case bool: if s.value.(bool) {return True} else {return False}
+	case bool: if s.value.(bool) {return True
+	} else {return False
+	}
 	case int, int8, int16, int32, int64: return N2S(s.value)
 	case uint, uint8, uint16, uint32, uint64: return N2S(s.value)
 	case float32, float64: return N2S(s.value)

@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/wskyxm/xutils/xerr"
+	"github.com/wskyxm/xutils/xlog"
 	"io"
 	"net/http"
-	"xutils/src/xerr"
-	"xutils/src/xlog"
 )
 
 type ResponseData struct {
@@ -53,7 +53,9 @@ func ErrorWithData(c *gin.Context, err error, data interface{}) {
 }
 
 func Respone(c *gin.Context, err error, data interface{}) {
-	if err != nil {ErrorWithData(c, err, data)} else {Success(c, data)}
+	if err != nil {
+		ErrorWithData(c, err, data)} else {
+		Success(c, data)}
 }
 
 func Success(c *gin.Context, data interface{}) {

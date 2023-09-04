@@ -2,7 +2,7 @@ package xcache
 
 import (
 	"github.com/go-redis/redis/v8"
-	"xutils/src/xlog"
+	"github.com/wskyxm/xutils/xlog"
 )
 
 type Z struct {

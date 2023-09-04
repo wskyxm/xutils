@@ -2,7 +2,7 @@ package httpres
 
 import (
 	"github.com/gin-gonic/gin"
-	"xutils/src/xvalue"
+	"github.com/wskyxm/xutils/xvalue"
 )
 
 type PageInfo struct {
