@@ -1,10 +1,11 @@
 package httpsvr
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/wskyxm/xutils/xlog"
 	"io"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/wskyxm/xutils/xlog"
 )
 
 type H = gin.H
@@ -34,7 +35,9 @@ func New(config Config) *Server {
 
 	// 创建WEB服务器实例
 	svr := &Server{config: config}
-	if config.Root != "" {svr.wwwdir = http.Dir(config.Root)}
+	if config.Root != "" {
+		svr.wwwdir = http.Dir(config.Root)
+	}
 
 	// 初始化WEB服务器实例
 	svr.router = gin.New()
@@ -46,7 +49,7 @@ func New(config Config) *Server {
 	return svr
 }
 
-func (s *Server)Run(addr string) {
+func (s *Server) Run(addr string) error {
 	xlog.Info("http server startup at %s", addr)
-	s.router.Run(addr)
+	return s.router.Run(addr)
 }
