@@ -3,6 +3,7 @@ package httpsvr
 import (
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/wskyxm/xutils/xlog"
@@ -15,8 +16,9 @@ type HandlerFunc = gin.HandlerFunc
 
 type Config struct {
 	Root           string
-	HandlerNoRoute []HandlerFunc
+	IndexPage      string
 	HandlerUse     []HandlerFunc
+	HandlerNoRoute HandlerFunc
 	AuthCB         HandlerFunc
 	AuthFCB        HandlerFunc
 	AuthBCB        HandlerFunc
@@ -35,18 +37,39 @@ func New(config Config) *Server {
 
 	// 创建WEB服务器实例
 	svr := &Server{config: config}
+
+	// 初始化静态文件根目录
 	if config.Root != "" {
 		svr.wwwdir = http.Dir(config.Root)
+	}
+
+	// 初始化默认页
+	svr.config.IndexPage = strings.TrimPrefix(svr.config.IndexPage, "/")
+	if svr.config.IndexPage == "" {
+		svr.config.IndexPage = "index.html"
 	}
 
 	// 初始化WEB服务器实例
 	svr.router = gin.New()
 	svr.router.SetTrustedProxies(nil)
-	svr.router.NoRoute(append(config.HandlerNoRoute, svr.noroute)...)
+	svr.router.NoRoute(svr.noroute)
 	svr.router.Use(append(config.HandlerUse, svr.cors)...)
+
+	// 设置自定义默认路由
+	if svr.config.HandlerNoRoute != nil {
+		svr.router.NoRoute(svr.config.HandlerNoRoute)
+	}
 
 	// 返回实例
 	return svr
+}
+
+func (s *Server) WebRoot() http.FileSystem {
+	return s.wwwdir
+}
+
+func (s *Server) Router() *gin.Engine {
+	return s.router
 }
 
 func (s *Server) Run(addr string) error {
