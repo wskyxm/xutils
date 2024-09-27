@@ -2,7 +2,6 @@ package httpsvr
 
 import (
 	"io"
-	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +24,6 @@ type Config struct {
 }
 
 type Server struct {
-	wwwdir http.FileSystem
 	config Config
 	router *gin.Engine
 }
@@ -37,11 +35,6 @@ func New(config Config) *Server {
 
 	// 创建WEB服务器实例
 	svr := &Server{config: config}
-
-	// 初始化静态文件根目录
-	if config.Root != "" {
-		svr.wwwdir = http.Dir(config.Root)
-	}
 
 	// 初始化默认页
 	svr.config.IndexPage = strings.TrimPrefix(svr.config.IndexPage, "/")
@@ -62,10 +55,6 @@ func New(config Config) *Server {
 
 	// 返回实例
 	return svr
-}
-
-func (s *Server) WebRoot() http.FileSystem {
-	return s.wwwdir
 }
 
 func (s *Server) Router() *gin.Engine {

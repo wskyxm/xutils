@@ -27,23 +27,20 @@ func (s *Server) cors(context *gin.Context) {
 }
 
 func (s *Server) noroute(c *gin.Context) {
-	// 参数检查
-	if s.wwwdir == nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		return
-	}
+	// 获取请求的文件路径
+	path := filepath.Join(s.config.Root, c.Request.URL.Path)
 
 	// 如果是目录，就增加默认页
-	if stat, err := os.Stat(filepath.Join(s.config.Root, c.Request.URL.Path)); err == nil && stat.IsDir() {
-		c.Request.URL.Path = strings.TrimSuffix(c.Request.URL.Path, "/") + "/" + s.config.IndexPage
+	if stat, err := os.Stat(path); err == nil && stat.IsDir() {
+		path = strings.TrimSuffix(path, "/") + "/" + s.config.IndexPage
 	}
 
 	// 检查文件是否存在
-	if _, err := os.Stat(filepath.Join(s.config.Root, c.Request.URL.Path)); err != nil {
+	if _, err := os.Stat(path); err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}
 
-	// 静态文件服务
-	c.FileFromFS(c.Request.URL.Path, s.wwwdir)
+	// 返回文件内容
+	http.ServeFile(c.Writer, c.Request, path)
 }
