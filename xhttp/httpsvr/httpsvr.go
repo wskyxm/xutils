@@ -46,7 +46,7 @@ func New(config Config) *Server {
 	svr.router = gin.New()
 	svr.router.SetTrustedProxies(nil)
 	svr.router.NoRoute(svr.noroute)
-	svr.router.Use(append(config.HandlerUse, svr.cors)...)
+	svr.router.Use(config.HandlerUse...)
 
 	// 设置自定义默认路由
 	if svr.config.HandlerNoRoute != nil {
