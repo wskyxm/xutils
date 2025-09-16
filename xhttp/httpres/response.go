@@ -10,6 +10,8 @@ import (
 	"net/http"
 )
 
+var escapeHTML bool
+
 type ResponseData struct {
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
@@ -19,6 +21,10 @@ type ResponseData struct {
 func (res *ResponseData)String() string {
 	data, _ := json.Marshal(res)
 	return string(data)
+}
+
+func SetEscapeHTML(bool enable) {
+	escapeHTML = enable
 }
 
 func NewResponseData(code int, err error, data interface{}) *ResponseData {
@@ -37,7 +43,7 @@ func respone(c *gin.Context, code int, err error, data interface{}, level xlog.S
 	// 数据编码
 	var buffer bytes.Buffer
 	enc := json.NewEncoder(&buffer)
-	enc.SetEscapeHTML(false)
+	enc.SetEscapeHTML(escapeHTML)
 	enc.Encode(ResponseData{Code: code, Message: err.Error(), Data: data})
 
 	// 发送数据
