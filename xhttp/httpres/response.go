@@ -27,7 +27,7 @@ func (res *ResponseData)String() string {
 	return string(data)
 }
 
-func SetEscapeHTML(bool enable) {
+func SetEscapeHTML(enable bool) {
 	escapeHTML = enable
 }
 
