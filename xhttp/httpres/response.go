@@ -33,9 +33,17 @@ func NewSuccess() *ResponseData {
 func respone(c *gin.Context, code int, err error, data interface{}, level xlog.Severity) {
 	// 参数检查
 	if err == nil {err = xerr.NoError; code = http.StatusOK}
+	
+	// 数据编码
+	var buffer bytes.Buffer
+	enc := json.NewEncoder(&buffer)
+	enc.SetEscapeHTML(false)
+	enc.Encode(ResponseData{Code: code, Message: err.Error(), Data: data})
 
 	// 发送数据
-	c.JSON(http.StatusOK, ResponseData{Code: code, Message: err.Error(), Data: data})
+	c.Status(http.StatusOK)
+	c.Writer.Header().Set("Content-Type", "application/json; charset=utf-8")
+	c.Writer.Write(buffer.Bytes())
 }
 
 func Error(c *gin.Context, err error) {
