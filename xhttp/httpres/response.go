@@ -18,6 +18,10 @@ type ResponseData struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
+func init() {
+	escapeHTML = true
+}
+
 func (res *ResponseData)String() string {
 	data, _ := json.Marshal(res)
 	return string(data)
