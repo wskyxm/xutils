@@ -61,6 +61,11 @@ func (s *Server) Router() *gin.Engine {
 	return s.router
 }
 
+func (s *Server) RunTLS(addr, crtFile, keyFile string) error {
+	xlog.Info("https server startup at %s", addr)
+	return s.router.RunTLS(addr, crtFile, keyFile)
+}
+
 func (s *Server) Run(addr string) error {
 	xlog.Info("http server startup at %s", addr)
 	return s.router.Run(addr)
